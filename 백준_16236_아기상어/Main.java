@@ -65,16 +65,16 @@ public class Main {
 			for (int i = 0; i < list.size(); i++) {
 				if (list.get(i).size >= sharkSize) continue;
 
-				System.out.println("ㅈㅣ금 찾을 사이즈 "+list.get(i).size);
-				System.out.println("지금 물고기 위치 :"+list.get(i).x+" "+list.get(i).y);
+//				System.out.println("ㅈㅣ금 찾을 사이즈 "+list.get(i).size);
+//				System.out.println("지금 물고기 위치 :"+list.get(i).x+" "+list.get(i).y);
 				isVisited = new boolean[N][N];
 				q.offer(new Node(list.get(i).x, list.get(i).y, 0));
 				isTrue = false;
-				int size = 0;
+				int size = Integer.MAX_VALUE;
 				//System.out.println("현재 물고기 :" + list.get(i).x + " " + list.get(i).y);
 				while (!q.isEmpty()) {
-					if (isTrue)
-						break;
+					//if (isTrue)
+					//	break;
 					Node node = q.poll();
 //					System.out.println(node.x + " " + node.y);
 
@@ -85,9 +85,9 @@ public class Main {
 						if (nx < 0 || nx >= N || ny < 0 || ny >= N || isVisited[nx][ny])
 							continue;
 						if (map[nx][ny] == 9) {
-							System.out.println("size :" + (node.size + 1));
-							size = node.size + 1;
-							isTrue = true;
+//							System.out.println("size :" + (node.size + 1));
+							size = (size>node.size+1)?node.size+1:size;
+							//isTrue = true;
 							break;
 						}
 						if (map[nx][ny] > sharkSize)
@@ -102,7 +102,7 @@ public class Main {
 				// 최단 거리 구했음
 				if (getMin.size > size) { //내가 현재 구한 거리가 최소값보다 작으면 갱신
 					getMin = new Node(list.get(i).x, list.get(i).y, size);
-					System.out.println("최종최단 거리 :"+getMin.size);
+//					System.out.println("최종최단 거리 :"+getMin.size);
 					idx = i;
 				} else if (getMin.size == size) { //최소값이 같으면
 					if (getMin.x > list.get(i).x) {//더 위에 있는거
@@ -124,20 +124,19 @@ public class Main {
 			shark[1] = getMin.y;
 			list.remove(idx); // 리스트에 있는 물고기 하나 지워주고
 			sharkUp++; // 먹은 만큼 ++
-			System.out.println("몇개 먹은지: "+sharkUp);
+//			System.out.println("몇개 먹은지: "+sharkUp);
 			if (sharkSize == sharkUp) { // 먹은 개수랑 사이즈랑 똑같아 지면 크기 키워주기
 				sharkSize++;
 				sharkUp = 0;
-				System.out.println("상어 크기 키워줌 :"+sharkSize);
+//				System.out.println("상어 크기 키워줌 :"+sharkSize);
 			}
 			
-			System.out.println("지운 후 배열");
-			for(int i=0;i<N;i++)
-				System.out.println(Arrays.toString(map[i]));
-			System.out.println(time);
+//			System.out.println("지운 후 배열");
+//			for(int i=0;i<N;i++)
+//				System.out.println(Arrays.toString(map[i]));
+			//System.out.println(time);
 		}
 		// 현재 리스트 중에서 제일 가꺼운거 자리 구하기
-
 	}
 
 

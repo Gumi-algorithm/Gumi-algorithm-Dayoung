@@ -6,7 +6,7 @@ import java.util.StringTokenizer;
 public class Main {
 
 	static int N,M;
-	static final int INF = 999999;
+	static final int INF = 99999999;
 	static int adjMatrix[][];
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -16,7 +16,15 @@ public class Main {
 		M = Integer.parseInt(br.readLine()); //버스의 개수
 		
 		adjMatrix = new int[N][N];
-
+		
+		for(int i=0;i<N;++i) {
+			for(int j=0;j<N;++j) {
+				if(i != j && adjMatrix[i][j]==0) {//자기자신으로의 인접 정보가 아니고 인접해있지 않다면 INF로 채우기
+					adjMatrix[i][j]=INF;
+				}
+			}
+		}
+		
 		for(int i=0;i<M;i++) {
 			st = new StringTokenizer(br.readLine());
 			int start = Integer.parseInt(st.nextToken())-1; //시작도시
@@ -31,13 +39,6 @@ public class Main {
 				adjMatrix[start][end] = price;
 		}
 		
-		for(int i=0;i<N;++i) {
-			for(int j=0;j<N;++j) {
-				if(i != j && adjMatrix[i][j]==0) {//자기자신으로의 인접 정보가 아니고 인접해있지 않다면 INF로 채우기
-					adjMatrix[i][j]=INF;
-				}
-			}
-		}
 
 		for(int k=0; k<N; ++k) {
 			for(int i=0; i<N; ++i) {
@@ -57,7 +58,8 @@ public class Main {
 	private static void print() {
 		for(int i=0; i<N; ++i) {
 			for(int j=0; j<N; ++j) {
-				System.out.print(adjMatrix[i][j]+" ");
+				if(adjMatrix[i][j]>=INF)System.out.print("0 ");
+				else System.out.print(adjMatrix[i][j]+" ");
 			}
 			System.out.println();
 		}

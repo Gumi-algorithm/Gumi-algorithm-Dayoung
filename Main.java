@@ -1,42 +1,40 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
-	
-	public static void main(String[] args) throws IOException {
+
+	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
 		
-		int N = Integer.parseInt(st.nextToken());
-		int S = Integer.parseInt(st.nextToken());
+		int N = Integer.parseInt(br.readLine());
 		
 		int arr[] = new int[N];
 		
-		st = new StringTokenizer(br.readLine());
+		StringTokenizer st = new StringTokenizer(br.readLine());
 		for(int i=0;i<N;i++) arr[i] = Integer.parseInt(st.nextToken());
-		
-//		System.out.println(Arrays.toString(arr));
-		
+
 		int start = 0;
-		int end = 0;
-		int minLen = Integer.MAX_VALUE;
-		int sum = 0;
-		
-		while(true) {
-			if(sum >=S) {
-				minLen = Math.min(minLen, end-start);
-				sum -= arr[start++];
+		int end = start + 1;
+		int sum = Integer.MAX_VALUE;
+		int num1=0,num2=0;
+		while(start<N) {
+			if(end >=N) {
+				start++;
+				end = start+1;
 			}
-			else if(end == N) break;
-			else if(sum <S) {
-				sum +=arr[end++];
+			else if(end<N) {
+				if(sum>Math.abs(arr[start]+arr[end])) {
+					sum = Math.abs(arr[start]+arr[end]);
+					num1 = arr[start];
+					num2 = arr[end];
+				}
+				end++;
 			}
 		}
 		
-		System.out.println(minLen<Integer.MAX_VALUE?minLen : "0");
+		if(num1>num2) System.out.println(num2+" "+num1);
+		else System.out.println(num1+" "+num2);
 	}
-
 }
